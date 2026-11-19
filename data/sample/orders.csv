@@ -1,0 +1,21 @@
+order_id,order_date,customer,region,product,category,quantity,unit_price,revenue
+ORD-2001,2026-04-02,Customer_001,North,Cloud Suite,Software,3,1200,3600
+ORD-2002,2026-04-03,Customer_002,South,Analytics Pro,Software,4,850,3400
+ORD-2003,2026-04-04,Customer_003,East,Database Plus,Software,5,1500,7500
+ORD-2004,2026-04-05,Customer_004,West,Security Shield,Security,6,950,5700
+ORD-2005,2026-04-06,Customer_005,North,AI Assistant,AI Tools,2,1100,2200
+ORD-2006,2026-04-07,Customer_006,South,Cloud Suite,Software,3,1200,3600
+ORD-2007,2026-04-08,Customer_007,East,Analytics Pro,Software,4,850,3400
+ORD-2008,2026-04-09,Customer_008,West,Database Plus,Software,5,1500,7500
+ORD-2009,2026-04-10,Customer_009,North,Security Shield,Security,6,950,5700
+ORD-2010,2026-04-11,Customer_010,South,AI Assistant,AI Tools,2,1100,2200
+ORD-2011,2026-04-12,Customer_011,East,Cloud Suite,Software,3,1200,3600
+ORD-2012,2026-04-13,Customer_012,West,Analytics Pro,Software,4,850,3400
+ORD-2013,2026-04-14,Customer_013,North,Database Plus,Software,5,1500,7500
+ORD-2014,2026-04-15,Customer_014,South,Security Shield,Security,6,950,5700
+ORD-2015,2026-04-16,Customer_015,East,AI Assistant,AI Tools,2,1100,2200
+ORD-2016,2026-04-17,Customer_016,West,Cloud Suite,Software,3,1200,3600
+ORD-2017,2026-04-18,Customer_017,North,Analytics Pro,Software,4,850,3400
+ORD-2018,2026-04-19,Customer_018,South,Database Plus,Software,5,1500,7500
+ORD-2019,2026-04-20,Customer_019,East,Security Shield,Security,6,950,5700
+ORD-2020,2026-04-21,Customer_020,West,AI Assistant,AI Tools,2,1100,2200
