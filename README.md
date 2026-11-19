@@ -1,6 +1,6 @@
 # Multi-Agent Workflow Platform
 
-[![CI](https://github.com/adityagupta74-ai/multi-agent-workflow-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/adityagupta74-ai/multi-agent-workflow-platform/actions/workflows/ci.yml)
+[![CI](https://github.com/adityagupta74-ai/multi-agent-llm-workflow-platform/actions/workflows/ci.yml/badge.svg)](https://github.com/adityagupta74-ai/multi-agent-llm-workflow-platform/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11-blue)
 ![LangGraph](https://img.shields.io/badge/LangGraph-agents-1c3c3c)
 ![Gemini](https://img.shields.io/badge/Gemini-Vertex%20AI-4285F4)
@@ -70,8 +70,8 @@ There's more detail in [docs/architecture.md](docs/architecture.md).
 **Prerequisites:** Docker, plus a [Gemini API key](https://aistudio.google.com/apikey). You can skip the key by using `LLM_PROVIDER=mock`.
 
 ```bash
-git clone https://github.com/adityagupta74-ai/multi-agent-workflow-platform.git
-cd multi-agent-workflow-platform
+git clone https://github.com/adityagupta74-ai/multi-agent-llm-workflow-platform.git
+cd multi-agent-llm-workflow-platform
 cp .env.example .env            # set LLM_API_KEY, or LLM_PROVIDER=mock to run offline
 docker compose up --build
 ```
