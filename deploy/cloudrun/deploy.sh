@@ -43,6 +43,13 @@ for role in roles/cloudsql.client roles/aiplatform.user roles/secretmanager.secr
     --condition None >/dev/null
 done
 
+# Newer projects run Cloud Build as the Compute Engine default service account,
+# which no longer gets build permissions automatically.
+PROJECT_NUMBER="$(gcloud projects describe "$PROJECT_ID" --format 'value(projectNumber)')"
+gcloud projects add-iam-policy-binding "$PROJECT_ID" \
+  --member "serviceAccount:${PROJECT_NUMBER}-compute@developer.gserviceaccount.com" \
+  --role roles/cloudbuild.builds.builder --condition None >/dev/null
+
 echo "==> Cloud SQL (PostgreSQL 16) — first creation takes ~10 minutes"
 if ! gcloud sql instances describe "$SQL_INSTANCE" >/dev/null 2>&1; then
   gcloud sql instances create "$SQL_INSTANCE" --database-version POSTGRES_16 \
@@ -78,6 +85,7 @@ echo "==> Deploying backend"
 gcloud run deploy "${PREFIX}-backend" \
   --image "${REGISTRY}/backend:${TAG}" --region "$REGION" --service-account "$SA" \
   --port 8000 --cpu 1 --memory 2Gi --min-instances 0 --max-instances 1 --timeout 300 \
+  --execution-environment gen2 \
   --add-cloudsql-instances "$CONN" \
   --set-secrets "DATABASE_URL=${PREFIX}-database-url:latest" \
   --set-env-vars "APP_ENV=production,LLM_PROVIDER=vertex,LLM_MODEL=${LLM_MODEL},EMBEDDING_PROVIDER=vertex,EMBEDDING_MODEL=gemini-embedding-001,EMBEDDING_DIMENSION=768,GOOGLE_CLOUD_PROJECT=${PROJECT_ID},GOOGLE_CLOUD_LOCATION=${REGION},DOCUMENT_STORAGE_PATH=/app/data/documents,FAISS_INDEX_PATH=/app/data/faiss" \
