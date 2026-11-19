@@ -21,7 +21,9 @@ DB_USER="workflow"
 BUCKET="${PROJECT_ID}-${PREFIX}-data"
 SA_NAME="${PREFIX}-runtime"
 SA="${SA_NAME}@${PROJECT_ID}.iam.gserviceaccount.com"
-LLM_MODEL="${LLM_MODEL:-gemini-2.5-flash}"
+LLM_MODEL="${LLM_MODEL:-gemini-3.5-flash}"
+# Gemini models on Vertex AI are served from the "global" endpoint.
+VERTEX_LOCATION="${VERTEX_LOCATION:-global}"
 REGISTRY="${REGION}-docker.pkg.dev/${PROJECT_ID}/${REPO}"
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 
@@ -73,6 +75,9 @@ gcloud storage buckets describe "gs://${BUCKET}" >/dev/null 2>&1 || \
   gcloud storage buckets create "gs://${BUCKET}" --location "$REGION" --uniform-bucket-level-access
 gcloud storage buckets add-iam-policy-binding "gs://${BUCKET}" \
   --member "serviceAccount:${SA}" --role roles/storage.objectAdmin >/dev/null
+# The backend image only contains backend/, so seed the approved sample dataset
+# into the bucket; it is mounted at /app/data, giving /app/data/sample/orders.csv.
+gcloud storage cp "$ROOT/data/sample/"*.csv "gs://${BUCKET}/sample/"
 
 TAG="$(date +%Y%m%d-%H%M%S)"
 
@@ -88,7 +93,7 @@ gcloud run deploy "${PREFIX}-backend" \
   --execution-environment gen2 \
   --add-cloudsql-instances "$CONN" \
   --set-secrets "DATABASE_URL=${PREFIX}-database-url:latest" \
-  --set-env-vars "APP_ENV=production,LLM_PROVIDER=vertex,LLM_MODEL=${LLM_MODEL},EMBEDDING_PROVIDER=vertex,EMBEDDING_MODEL=gemini-embedding-001,EMBEDDING_DIMENSION=768,GOOGLE_CLOUD_PROJECT=${PROJECT_ID},GOOGLE_CLOUD_LOCATION=${REGION},DOCUMENT_STORAGE_PATH=/app/data/documents,FAISS_INDEX_PATH=/app/data/faiss" \
+  --set-env-vars "APP_ENV=production,LLM_PROVIDER=vertex,LLM_MODEL=${LLM_MODEL},EMBEDDING_PROVIDER=vertex,EMBEDDING_MODEL=gemini-embedding-001,EMBEDDING_DIMENSION=768,GOOGLE_CLOUD_PROJECT=${PROJECT_ID},GOOGLE_CLOUD_LOCATION=${VERTEX_LOCATION},DOCUMENT_STORAGE_PATH=/app/data/documents,FAISS_INDEX_PATH=/app/data/faiss" \
   --add-volume "name=data,type=cloud-storage,bucket=${BUCKET}" \
   --add-volume-mount "volume=data,mount-path=/app/data" \
   --allow-unauthenticated

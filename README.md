@@ -6,6 +6,8 @@
 ![Gemini](https://img.shields.io/badge/Gemini-Vertex%20AI-4285F4)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+**Live demo:** https://workflow-frontend-rvlumdsnrq-uc.a.run.app · **API docs:** https://workflow-backend-rvlumdsnrq-uc.a.run.app/docs
+
 A multi-agent system that answers business questions over a company's **documents** and **structured data**. Answers come with citations and checked numbers. Sensitive answers wait for **human approval** before they're released.
 
 Built with LangGraph, FastAPI, PostgreSQL, FAISS, the Model Context Protocol (MCP) and Google Gemini. It runs with Docker Compose locally, and a single script deploys it to Cloud Run.
@@ -92,7 +94,7 @@ Try it:
 
 | `LLM_PROVIDER` | Auth | Notes |
 |---|---|---|
-| `gemini` | `LLM_API_KEY` | Gemini API (AI Studio key). Default model `gemini-2.5-flash` |
+| `gemini` | `LLM_API_KEY` | Gemini API (AI Studio key). Default model `gemini-3.5-flash` |
 | `vertex` | Application Default Credentials | Vertex AI. Needs `GOOGLE_CLOUD_PROJECT`. Used in the Cloud Run deployment |
 | `openai` / `ollama` / `azure_openai` | `LLM_API_KEY`, `LLM_BASE_URL` | Any OpenAI-compatible endpoint |
 | `mock` | none | Deterministic offline model, used by the test suite |

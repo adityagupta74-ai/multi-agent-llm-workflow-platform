@@ -10,10 +10,10 @@ from backend.app.services.llm import get_llm
 
 
 def test_get_llm_gemini_api_key():
-    cfg = Settings(LLM_PROVIDER="gemini", LLM_MODEL="gemini-2.5-flash", LLM_API_KEY="test-key")
+    cfg = Settings(LLM_PROVIDER="gemini", LLM_MODEL="gemini-3.5-flash", LLM_API_KEY="test-key")
     llm = get_llm(settings=cfg)
     assert type(llm).__name__ == "ChatGoogleGenerativeAI"
-    assert "gemini-2.5-flash" in llm.model
+    assert "gemini-3.5-flash" in llm.model
 
 
 def test_get_llm_gemini_requires_key():

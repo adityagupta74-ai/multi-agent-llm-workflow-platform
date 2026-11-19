@@ -31,7 +31,7 @@ class Settings(BaseSettings):
         default="mock",
         description="LLM Provider: gemini, vertex, openai, azure_openai, ollama, mock",
     )
-    LLM_MODEL: str = Field(default="gemini-2.5-flash", description="Model identifier")
+    LLM_MODEL: str = Field(default="gemini-3.5-flash", description="Model identifier")
     LLM_API_KEY: Optional[str] = Field(default=None, description="API key for the LLM provider")
     GOOGLE_CLOUD_PROJECT: Optional[str] = Field(default=None, description="GCP project ID (required for provider=vertex)")
     GOOGLE_CLOUD_LOCATION: str = Field(default="us-central1", description="Vertex AI region (provider=vertex)")

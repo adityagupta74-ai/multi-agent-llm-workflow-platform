@@ -33,6 +33,10 @@ The first run takes about 15 minutes, mostly creating the Cloud SQL instance. La
 | GCS bucket | `<project>-workflow-data` | Mounted at `/app/data` with Cloud Run volume mounts |
 | Cloud Run | `workflow-backend`, `workflow-frontend` | Scale to zero. The backend is capped at 1 instance (single FAISS writer) |
 
+## Notes
+- Gemini models on Vertex AI are called through the `global` endpoint (`VERTEX_LOCATION`, default `global`). Cloud Run, Cloud SQL and the bucket stay in `REGION`.
+- The sample dataset (`data/sample/*.csv`) is copied into the bucket, because the backend image only contains `backend/`.
+
 ## Cost
 Cloud Run scales to zero when idle. The main fixed cost is the `db-f1-micro` Cloud SQL instance (a few USD per month). Run `./deploy/cloudrun/teardown.sh` when you're done.
 
